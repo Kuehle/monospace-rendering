@@ -1,8 +1,3 @@
-interface RenderOptions {
-    // offset
-    // dimensions
-}
-
 interface CreateRectOptions {
     width: number
     height: number
@@ -16,11 +11,6 @@ export const createRect = ({
     char,
 }: CreateRectOptions): string[] => {
     return Array(height).fill(char.repeat(width))
-}
-
-interface Coordinate {
-    x: number
-    y: number
 }
 
 interface CoordinateOption {
@@ -67,9 +57,4 @@ export const compose = (
         ).join('')
     )
     return result
-}
-
-// maybe switch options for easier curring
-export const render = (str: string, options?: RenderOptions) => {
-    return str
 }
