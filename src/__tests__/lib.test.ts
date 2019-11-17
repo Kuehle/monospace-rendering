@@ -1,5 +1,5 @@
 import { createRect, compose } from '../index'
-import { map, reduce } from 'util/array'
+import { map, reduce } from '../util/array'
 
 test('map', () => {
     const arr = [1, 1, 1, 1]

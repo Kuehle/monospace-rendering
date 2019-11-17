@@ -1,4 +1,4 @@
-import { map } from 'util/array'
+import { map } from './util/array'
 
 interface CreateRectOptions {
     width: number
