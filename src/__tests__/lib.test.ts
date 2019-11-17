@@ -1,8 +1,20 @@
-import { map, createRect, compose } from '../index'
+import { map, reduce, createRect, compose } from '../index'
 
 test('map', () => {
-    const result = map([1, 1, 1, 1], (el, i, arr) => el * i * arr.length)
-    expect(result).toEqual([0, 4, 8, 12])
+    const arr = [1, 1, 1, 1]
+    const fun = (el: number, i: number, arr: number[]) => el * i * arr.length
+
+    const result = map(arr, fun)
+    expect(result).toEqual(arr.map(fun))
+})
+
+test('reduce', () => {
+    const arr = [1, 1, 1, 1]
+    const fun = (acc: number, el: number, i: number, arr: number[]) =>
+        acc + el * i * arr.length
+
+    const result = reduce(arr, fun, 0)
+    expect(result).toEqual(arr.reduce(fun, 0))
 })
 
 describe('The Lib', () => {
@@ -42,4 +54,11 @@ describe('The Lib', () => {
             'X000X',
         ])
     })
+})
+
+test('draw notes', () => {
+    const canvas = createRect({ width: 80, height: 24, char: '.' })
+    const line = createRect({ width: 80, height: 1, char: '=' })
+
+    compose(canvas, line, { y: 10 })
 })

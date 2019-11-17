@@ -1,4 +1,9 @@
+# Features
+
+-   draw rectangles
+-   compose drawings
+
 # TODO
 
-- Render str in frame (with offset)
-- allow for more than one char in one cell
+-   allow for more than one char in one cell
+-   Render str in frame (with offset)
