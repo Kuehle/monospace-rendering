@@ -1,3 +1,5 @@
+import { map } from 'util/array'
+
 interface CreateRectOptions {
     width: number
     height: number
@@ -16,28 +18,6 @@ export const createRect = ({
 interface CoordinateOption {
     x?: number
     y?: number
-}
-
-export const map = <T, K>(
-    arr: Array<T>,
-    fun: (el: T, i: number, arr: Array<T>) => K
-): Array<K> => {
-    const result: Array<K> = []
-    for (let i = 0; i < arr.length; i++) {
-        result[i] = fun(arr[i], i, arr)
-    }
-    return result
-}
-
-export const reduce = <T, K>(
-    arr: Array<T>,
-    fun: (acc: K, el: T, i: number, arr: Array<T>) => K,
-    acc: K
-): K => {
-    for (let i = 0; i < arr.length; i++) {
-        acc = fun(acc, arr[i], i, arr)
-    }
-    return acc
 }
 
 export const compose = (
