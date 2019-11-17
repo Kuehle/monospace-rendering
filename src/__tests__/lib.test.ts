@@ -56,7 +56,7 @@ describe('The Lib', () => {
     })
 })
 
-test('draw notes', () => {
+const drawStaff = (width: number) => {
     const canvas = createRect({ width: 30, height: 24, char: '.' })
     const line = createRect({ width: 30, height: 1, char: '=' })
 
@@ -65,6 +65,12 @@ test('draw notes', () => {
         (result, _, i) => compose(result, line, { y: 4 + i * 4 }),
         canvas
     )
+
+    return result
+}
+
+test('draw notes', () => {
+    const result = drawStaff(30)
 
     expect(result).toEqual([
         '..............................',
