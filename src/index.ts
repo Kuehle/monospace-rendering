@@ -1,5 +1,7 @@
 import { map } from './util/array'
 
+const TRANSPARENT = '\u0000' 
+
 interface CreateRectOptions {
     width: number
     height: number
@@ -20,6 +22,9 @@ interface CoordinateOption {
     y?: number
 }
 
+export const toTransparancy = (image: string[], charToSubstitute: string) =>
+    map(image, (line) => line.split(charToSubstitute).join(TRANSPARENT))
+
 export const compose = (
     bottom: string[],
     top: string[],
@@ -31,10 +36,13 @@ export const compose = (
     const result = map(bottom, (bottomLine, y) =>
         map(
             bottomLine.split('').slice(),
-            (bottomChar, x) =>
-                (top[y - yOffset] && top[y - yOffset][x - xOffset]) ||
-                bottomChar
+            (bottomChar, x) => {
+                const topChar = (top[y - yOffset] && top[y - yOffset][x - xOffset]) 
+                if (!topChar || topChar === TRANSPARENT) return bottomChar
+                else return topChar
+            }
         ).join('')
     )
     return result
 }
+
