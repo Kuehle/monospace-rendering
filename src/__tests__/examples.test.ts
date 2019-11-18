@@ -15,9 +15,9 @@ const drawStaff = (width: number) => {
 }
 
 test('draw notes', () => {
-    const result = drawStaff(60)
+    const canvas = drawStaff(60)
 
-    expect(result).toEqual([
+    expect(canvas).toEqual([
         '............................................................',
         '............................................................',
         '............................................................',
@@ -43,4 +43,15 @@ test('draw notes', () => {
         '............................................................',
         '............................................................',
     ])
+
+    const noteHead = [
+        '   ███████  ',
+        ' ██       ██',
+        '██       ██ ',
+        '  ███████   ',
+    ]
+
+    const result = compose(canvas, noteHead, {x: 8, y: 17})
+
+    expect(result).toMatchInlineSnapshot()
 })
