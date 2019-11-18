@@ -22,7 +22,7 @@ interface CoordinateOption {
     y?: number
 }
 
-export const toTransparancy = (image: string[], charToSubstitute: string) =>
+export const toTransparancy = (image: string[], charToSubstitute: string = " ") =>
     map(image, (line) => line.split(charToSubstitute).join(TRANSPARENT))
 
 export const compose = (
