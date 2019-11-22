@@ -14,7 +14,7 @@ export interface Coordinate {
     y: number
 }
 
-export type CropInput = Dimension & Coordinate
+export type CropInput = Partial<Dimension & Coordinate>
 
 type CreateRectOptions = Dimension & {
     char: string
@@ -52,7 +52,10 @@ export const compose = (
     return result
 }
 
-export const crop = (image: Image, { width, height, x, y }: CropInput) => {
+export const crop = (
+    image: Image,
+    { width = image[0].length, height = image.length, x = 0, y = 0 }: CropInput
+) => {
     return reduce(
         image,
         (acc: Image, line: ImageLine, lineNumber) => {

@@ -74,4 +74,18 @@ describe('The Lib', () => {
 
         expect(cropped).toEqual(['00000', '00000', '00000'])
     })
+    it('can render a section of a canvas', () => {
+        const image = ['XXXXXXX', 'X00000X', 'X00000X', 'X00000X', 'XXXXXXX']
+
+        const cropped = crop(image, { width: 5, height: 3, y: 1 })
+
+        expect(cropped).toEqual(['X0000', 'X0000', 'X0000'])
+    })
+    it('can render a section of a canvas', () => {
+        const image = ['XXXXXXX', 'X00000X', 'X00000X', 'X00000X', 'XXXXXXX']
+
+        const cropped = crop(image, {})
+
+        expect(cropped).toEqual(image)
+    })
 })
