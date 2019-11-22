@@ -1,4 +1,4 @@
-import { createRect, compose, toTransparancy } from '../index'
+import { createRect, compose, crop, toTransparancy } from '../index'
 import { map, reduce } from '../util/array'
 
 test('map', () => {
@@ -55,15 +55,10 @@ describe('The Lib', () => {
             'X000X',
         ])
     })
-    it("can render transparancy", () => {
+    it('can render transparancy', () => {
         const canvas = createRect({ width: 5, height: 4, char: 'X' })
-        
-        const circle = toTransparancy([
-            ' 000 ',
-            '0   0',
-            '0   0',
-            ' 000 ',
-        ], " ")
+
+        const circle = toTransparancy([' 000 ', '0   0', '0   0', ' 000 '], ' ')
 
         expect(compose(canvas, circle)).toEqual([
             'X000X',
@@ -71,5 +66,12 @@ describe('The Lib', () => {
             '0XXX0',
             'X000X',
         ])
+    })
+    it('can render a section of a canvas', () => {
+        const image = ['XXXXXXX', 'X00000X', 'X00000X', 'X00000X', 'XXXXXXX']
+
+        const cropped = crop(image, { width: 5, height: 3, x: 1, y: 1 })
+
+        expect(cropped).toEqual(['00000', '00000', '00000'])
     })
 })
