@@ -1,4 +1,4 @@
-import { createRect, compose, toTransparancy } from '../index'
+import { createRect, compose, toTransparancy, Image } from '../index'
 import { reduce } from '../util/array'
 
 const drawStaff = (width: number) => {
@@ -14,38 +14,14 @@ const drawStaff = (width: number) => {
     return result
 }
 
-test('draw half note', () => {
-    const canvas = drawStaff(60)
+enum NoteLength {
+    Full,
+    Half,
+    Quarter,
+    Eighth,
+}
 
-    expect(canvas).toMatchInlineSnapshot(`
-        Array [
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-        ]
-    `)
-
+const createNote = (withStem = true, withHeadFull = true, withFlag = false) => {
     const noteHead = [
         '   ███████  ',
         ' ██       ██',
@@ -65,62 +41,163 @@ test('draw half note', () => {
     const noteStem = createRect({ width: 2, height: 13, char: '█' })
     const noteBackground = createRect({ width: 21, height: 16, char: ' ' })
 
-    const note = compose(
-        compose(compose(noteBackground, noteHeadFull, { y: 12 }), noteStem, {
+    const NOTHING: Image = []
+    const head = withHeadFull ? noteHeadFull : noteHead
+    const stem = withStem ? noteStem : NOTHING
+    const flag = withFlag ? noteFlag : NOTHING
+
+    return compose(
+        compose(compose(noteBackground, head, { y: 12 }), stem, {
             x: 10,
         }),
-        noteFlag,
+        flag,
         { x: 12, y: 1 }
     )
+}
 
-    expect(note).toMatchInlineSnapshot(`
-        Array [
-          "          ██         ",
-          "          ████       ",
-          "          ██ █████   ",
-          "          ██     ██  ",
-          "          ██     █   ",
-          "          ██         ",
-          "          ██         ",
-          "          ██         ",
-          "          ██         ",
-          "          ██         ",
-          "          ██         ",
-          "          ██         ",
-          "   █████████         ",
-          " ███████████         ",
-          "███████████          ",
-          "  ███████            ",
-        ]
-    `)
+const drawNote = (noteLength: NoteLength) => {
+    switch (noteLength) {
+        case NoteLength.Full:
+            return createNote(false, false, false)
+        case NoteLength.Half:
+            return createNote(true, false, false)
+        case NoteLength.Quarter:
+            return createNote(true, true, false)
+        case NoteLength.Eighth:
+            return createNote(true, true, true)
+    }
+}
 
-    expect(compose(canvas, toTransparancy(note), { x: 8, y: 5 }))
-        .toMatchInlineSnapshot(`
+describe('Can draw a note', () => {
+    test('with full length', () => {
+        const note = drawNote(NoteLength.Full)
+
+        expect(note).toMatchInlineSnapshot(`
+            Array [
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "                     ",
+              "   ███████           ",
+              " ██       ██         ",
+              "██       ██          ",
+              "  ███████            ",
+            ]
+        `)
+    })
+    test('with half length', () => {
+        const note = drawNote(NoteLength.Half)
+
+        expect(note).toMatchInlineSnapshot(`
+            Array [
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "   █████████         ",
+              " ██       ██         ",
+              "██       ██          ",
+              "  ███████            ",
+            ]
+        `)
+    })
+    test('with quarter length', () => {
+        const note = drawNote(NoteLength.Quarter)
+
+        expect(note).toMatchInlineSnapshot(`
+            Array [
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "   █████████         ",
+              " ███████████         ",
+              "███████████          ",
+              "  ███████            ",
+            ]
+        `)
+    })
+    test('with eighth length', () => {
+        const note = drawNote(NoteLength.Eighth)
+
+        expect(note).toMatchInlineSnapshot(`
+            Array [
+              "          ██         ",
+              "          ████       ",
+              "          ██ █████   ",
+              "          ██     ██  ",
+              "          ██     █   ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "          ██         ",
+              "   █████████         ",
+              " ███████████         ",
+              "███████████          ",
+              "  ███████            ",
+            ]
+        `)
+    })
+})
+
+test('draw half note', () => {
+    const staff = drawStaff(30)
+    const note = drawNote(NoteLength.Quarter)
+
+    const result = compose(staff, toTransparancy(note), { x: 8, y: 5 })
+    expect(result).toMatchInlineSnapshot(`
         Array [
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
-          "____________________________________________________________",
-          "                  ██                                        ",
-          "                  ████                                      ",
-          "                  ██ █████                                  ",
-          "__________________██_____██_________________________________",
-          "                  ██     █                                  ",
-          "                  ██                                        ",
-          "                  ██                                        ",
-          "__________________██________________________________________",
-          "                  ██                                        ",
-          "                  ██                                        ",
-          "                  ██                                        ",
-          "__________________██________________________________________",
-          "           █████████                                        ",
-          "         ███████████                                        ",
-          "        ███████████                                         ",
-          "__________███████___________________________________________",
-          "                                                            ",
-          "                                                            ",
-          "                                                            ",
+          "                              ",
+          "                              ",
+          "                              ",
+          "                              ",
+          "______________________________",
+          "                  ██          ",
+          "                  ██          ",
+          "                  ██          ",
+          "__________________██__________",
+          "                  ██          ",
+          "                  ██          ",
+          "                  ██          ",
+          "__________________██__________",
+          "                  ██          ",
+          "                  ██          ",
+          "                  ██          ",
+          "__________________██__________",
+          "           █████████          ",
+          "         ███████████          ",
+          "        ███████████           ",
+          "__________███████_____________",
+          "                              ",
+          "                              ",
+          "                              ",
         ]
     `)
 })
