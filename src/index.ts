@@ -1,7 +1,5 @@
 import { map, reduce, forI } from './util/array'
 
-const TRANSPARENT = '\u0000'
-
 export type ImageLine = string
 export type Image = ImageLine[]
 export interface Dimension {
@@ -20,20 +18,34 @@ type CreateRectOptions = Dimension & {
     char: string
 }
 
-// work as much with Image as possible
+type CoordinateOption = Partial<Coordinate>
+
+const TRANSPARENT = '\u0000'
+
 export const createRect = ({
     width,
     height,
     char,
 }: CreateRectOptions): Image => {
-    return Array(height).fill(char.repeat(width))
+    return forI(height, () => char.repeat(width))
 }
 
-type CoordinateOption = Partial<Coordinate>
-
+/**
+ * takes an image and subsitutes a character (default " ") with \u0000 which is
+ * treated as transparancy in composing images
+ * @param image
+ * @param charToSubstitute
+ */
 export const toTransparancy = (image: Image, charToSubstitute: string = ' ') =>
     map(image, line => line.split(charToSubstitute).join(TRANSPARENT))
 
+/**
+ * takes an images and applies the other one on top resulting in a new image
+ * with the dimensions of the bottom one
+ * @param bottom
+ * @param top
+ * @param offset
+ */
 export const compose = (
     bottom: Image,
     top: Image,
@@ -52,6 +64,11 @@ export const compose = (
     return result
 }
 
+/**
+ * creates new image from offset and dimension
+ * @param image
+ * @param param1
+ */
 export const crop = (
     image: Image,
     { width = image[0].length, height = image.length, x = 0, y = 0 }: CropInput
@@ -68,6 +85,10 @@ export const crop = (
     )
 }
 
+/**
+ * rotates an image to the right, as often as you want
+ * @param image
+ */
 export const rotate = (image: Image) => {
     const imageWidth = image[0].length
     const imageHeight = image.length
