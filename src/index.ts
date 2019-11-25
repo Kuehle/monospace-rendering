@@ -90,7 +90,7 @@ export const crop = (
  * @param image
  */
 export const rotate = (image: Image, n: number = 1) => {
-    if (n === 0) return image
+    if (n % 4 === 0) return image
 
     const imageWidth = image[0].length
     const imageHeight = image.length
