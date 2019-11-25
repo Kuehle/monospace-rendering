@@ -116,4 +116,18 @@ describe('The Lib', () => {
 
         expect(rotated).toEqual(image)
     })
+    it('can rotate an image 630 deg', () => {
+        const image = ['XX0', '000', '000']
+
+        const rotated = rotate(image, 630 / 90)
+
+        expect(rotated).toEqual(['000', 'X00', 'X00'])
+    })
+    it('can rotate an image by an uneven amount like 673', () => {
+        const image = ['XX0', '000', '000']
+
+        const rotated = rotate(image, 673 / 90)
+
+        expect(rotated).toEqual(['000', 'X00', 'X00'])
+    })
 })

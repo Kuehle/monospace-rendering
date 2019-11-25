@@ -90,6 +90,7 @@ export const crop = (
  * @param image
  */
 export const rotate = (image: Image, n: number = 1) => {
+    n = Math.round(n)
     if (n % 4 === 0) return image
 
     const imageWidth = image[0].length
@@ -98,7 +99,7 @@ export const rotate = (image: Image, n: number = 1) => {
     const result = <string[][]>forI(imageWidth, () => [])
     forI(imageHeight, y => {
         forI(imageWidth, x => {
-            switch (n) {
+            switch (n % 4) {
                 case 1:
                     return (result[x][imageHeight - y - 1] = image[y][x])
                 case 2:
