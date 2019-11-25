@@ -95,4 +95,11 @@ describe('The Lib', () => {
 
         expect(rotated).toEqual(['00X', '00X', '000'])
     })
+    it('can rotate an image 180 deg', () => {
+        const image = ['XX0', '000', '000']
+
+        const rotated = rotate(image, 2)
+
+        expect(rotated).toEqual(['000', '000', '0XX'])
+    })
 })

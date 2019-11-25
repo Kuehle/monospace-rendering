@@ -89,14 +89,20 @@ export const crop = (
  * rotates an image to the right, as often as you want
  * @param image
  */
-export const rotate = (image: Image) => {
+export const rotate = (image: Image, n: number = 1) => {
     const imageWidth = image[0].length
     const imageHeight = image.length
 
     const result = <string[][]>forI(imageWidth, () => [])
     forI(imageHeight, y => {
         forI(imageWidth, x => {
-            result[x][imageHeight - y - 1] = image[y][x]
+            switch (n) {
+                case 1:
+                    return (result[x][imageHeight - y - 1] = image[y][x])
+                case 2:
+                    return (result[imageWidth - y - 1][imageHeight - x - 1] =
+                        image[y][x])
+            }
         })
     })
 
