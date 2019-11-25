@@ -167,7 +167,7 @@ describe('Can draw a note', () => {
     })
 })
 
-test('draw half note', () => {
+test('draw quarter note on staff', () => {
     const staff = drawStaff(30)
     const note = drawNote(NoteLength.Quarter)
 
