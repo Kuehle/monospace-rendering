@@ -1,4 +1,4 @@
-import { createRect, compose, crop, toTransparancy } from '../index'
+import { createRect, compose, crop, toTransparancy, rotate } from '../index'
 import { map, reduce } from '../util/array'
 
 test('map', () => {
@@ -87,5 +87,12 @@ describe('The Lib', () => {
         const cropped = crop(image, {})
 
         expect(cropped).toEqual(image)
+    })
+    it('can rotate an image', () => {
+        const image = ['XX0', '000', '000']
+
+        const rotated = rotate(image)
+
+        expect(rotated).toEqual(['00X', '00X', '000'])
     })
 })

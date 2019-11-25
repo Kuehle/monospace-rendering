@@ -19,3 +19,11 @@ export const reduce = <T, K>(
     }
     return acc
 }
+
+export const forI = <T>(i: number, fun: (i: number) => T): T[] => {
+    const results = []
+    for (let n = 0; n < i; n++) {
+        results[n] = fun(n)
+    }
+    return results
+}

@@ -1,4 +1,4 @@
-import { map, reduce } from './util/array'
+import { map, reduce, forI } from './util/array'
 
 const TRANSPARENT = '\u0000'
 
@@ -66,4 +66,18 @@ export const crop = (
         },
         []
     )
+}
+
+export const rotate = (image: Image) => {
+    const imageWidth = image[0].length
+    const imageHeight = image.length
+
+    const result = <string[][]>forI(imageWidth, () => [])
+    forI(imageHeight, y => {
+        forI(imageWidth, x => {
+            result[x][imageHeight - y - 1] = image[y][x]
+        })
+    })
+
+    return map(result, line => line.join(''))
 }
