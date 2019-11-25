@@ -1,4 +1,4 @@
-import { createRect, compose, toTransparancy, Image } from '../index'
+import { createRect, compose, toTransparancy, Image, rotate } from '../index'
 import { reduce } from '../util/array'
 
 const drawStaff = (width: number) => {
@@ -167,37 +167,90 @@ describe('Can draw a note', () => {
     })
 })
 
-test('draw quarter note on staff', () => {
-    const staff = drawStaff(30)
-    const note = drawNote(NoteLength.Quarter)
+describe('Draws notes on staff:', () => {
+    test('quater note in lowest gap in staff (F in trebble)', () => {
+        const staff = drawStaff(30)
+        const note = drawNote(NoteLength.Quarter)
 
-    const result = compose(staff, toTransparancy(note), { x: 8, y: 5 })
-    expect(result).toMatchInlineSnapshot(`
-        Array [
-          "                              ",
-          "                              ",
-          "                              ",
-          "                              ",
-          "______________________________",
-          "                  ██          ",
-          "                  ██          ",
-          "                  ██          ",
-          "__________________██__________",
-          "                  ██          ",
-          "                  ██          ",
-          "                  ██          ",
-          "__________________██__________",
-          "                  ██          ",
-          "                  ██          ",
-          "                  ██          ",
-          "__________________██__________",
-          "           █████████          ",
-          "         ███████████          ",
-          "        ███████████           ",
-          "__________███████_____________",
-          "                              ",
-          "                              ",
-          "                              ",
-        ]
-    `)
+        const result = compose(staff, toTransparancy(note), { x: 8, y: 5 })
+        expect(result).toMatchInlineSnapshot(`
+            Array [
+              "                              ",
+              "                              ",
+              "                              ",
+              "                              ",
+              "______________________________",
+              "                  ██          ",
+              "                  ██          ",
+              "                  ██          ",
+              "__________________██__________",
+              "                  ██          ",
+              "                  ██          ",
+              "                  ██          ",
+              "__________________██__________",
+              "                  ██          ",
+              "                  ██          ",
+              "                  ██          ",
+              "__________________██__________",
+              "           █████████          ",
+              "         ███████████          ",
+              "        ███████████           ",
+              "__________███████_____________",
+              "                              ",
+              "                              ",
+              "                              ",
+            ]
+        `)
+    })
+
+    const foo = (
+        noteName: string,
+        noteLength: NoteLength,
+        width: number = 30
+    ) => {
+        const notes = 'EFGA_BCD'
+        const rotated = notes.split('_')[1]
+        const yOffset = [7, 5, 3, 1, 0_0, 6, 4, 2]
+        const staff = drawStaff(width)
+        const note = rotated.includes(noteName)
+            ? rotate(drawNote(noteLength), 2)
+            : drawNote(noteLength)
+
+        return compose(staff, toTransparancy(note), {
+            x: 8,
+            y: yOffset[notes.indexOf(noteName)],
+        })
+    }
+
+    test('draws eighth note middle of the stuff (B on trebble)', () => {
+        const image = foo('B', NoteLength.Quarter, 30)
+        expect(image).toMatchInlineSnapshot(`
+            Array [
+              "                              ",
+              "                              ",
+              "                              ",
+              "                              ",
+              "______________________________",
+              "                              ",
+              "                              ",
+              "                              ",
+              "______________________________",
+              "                              ",
+              "                              ",
+              "               ███████        ",
+              "_____________███████████______",
+              "            ███████████       ",
+              "            █████████         ",
+              "            ██                ",
+              "____________██________________",
+              "            ██                ",
+              "            ██                ",
+              "            ██                ",
+              "____________██________________",
+              "            ██                ",
+              "            ██                ",
+              "            ██                ",
+            ]
+        `)
+    })
 })
