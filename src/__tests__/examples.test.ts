@@ -1,6 +1,12 @@
 import { createRect, compose, toTransparancy, Image, rotate } from '../index'
-import { reduce } from '../util/array'
+import { reduce, forI } from '../util/array'
 
+enum NoteLength {
+    Full,
+    Half,
+    Quarter,
+    Eighth,
+}
 const drawStaff = (width: number) => {
     const canvas = createRect({ width, height: 24, char: ' ' })
     const line = createRect({ width, height: 1, char: '_' })
@@ -12,13 +18,6 @@ const drawStaff = (width: number) => {
     )
 
     return result
-}
-
-enum NoteLength {
-    Full,
-    Half,
-    Quarter,
-    Eighth,
 }
 
 const createNote = (withStem = true, withHeadFull = true, withFlag = false) => {
@@ -66,6 +65,25 @@ const drawNote = (noteLength: NoteLength) => {
         case NoteLength.Eighth:
             return createNote(true, true, true)
     }
+}
+
+const drawTrebbleNote = (
+    noteName: string,
+    noteLength: NoteLength,
+    width: number = 30
+) => {
+    const notes = 'EFGA_BCD'
+    const rotated = notes.split('_')[1]
+    const yOffset = [7, 5, 3, 1, 0_0, 6, 4, 2]
+    const staff = drawStaff(width)
+    const note = rotated.includes(noteName)
+        ? rotate(drawNote(noteLength), 2)
+        : drawNote(noteLength)
+
+    return compose(staff, toTransparancy(note), {
+        x: 8,
+        y: yOffset[notes.indexOf(noteName)],
+    })
 }
 
 describe('Can draw a note', () => {
@@ -203,27 +221,8 @@ describe('Draws notes on staff:', () => {
         `)
     })
 
-    const foo = (
-        noteName: string,
-        noteLength: NoteLength,
-        width: number = 30
-    ) => {
-        const notes = 'EFGA_BCD'
-        const rotated = notes.split('_')[1]
-        const yOffset = [7, 5, 3, 1, 0_0, 6, 4, 2]
-        const staff = drawStaff(width)
-        const note = rotated.includes(noteName)
-            ? rotate(drawNote(noteLength), 2)
-            : drawNote(noteLength)
-
-        return compose(staff, toTransparancy(note), {
-            x: 8,
-            y: yOffset[notes.indexOf(noteName)],
-        })
-    }
-
     test('draws eighth note middle of the stuff (B on trebble)', () => {
-        const image = foo('B', NoteLength.Quarter, 30)
+        const image = drawTrebbleNote('B', NoteLength.Quarter, 30)
         expect(image).toMatchInlineSnapshot(`
             Array [
               "                              ",
@@ -251,6 +250,57 @@ describe('Draws notes on staff:', () => {
               "            ██                ",
               "            ██                ",
             ]
+        `)
+    })
+
+    test('draws multiple notes', () => {
+        const NOTE_WIDTH = 30
+        const noteNames = 'AFDGEF'
+        const staff = drawStaff(noteNames.length * NOTE_WIDTH)
+        const noteLenghts = [
+            NoteLength.Full,
+            NoteLength.Quarter,
+            NoteLength.Eighth,
+            NoteLength.Eighth,
+            NoteLength.Half,
+            NoteLength.Quarter,
+        ]
+
+        const notes = forI(noteNames.length, i =>
+            drawTrebbleNote(noteNames[i], noteLenghts[i], NOTE_WIDTH)
+        )
+
+        const result = reduce(
+            notes,
+            (staff, note, i) => compose(staff, note, { x: NOTE_WIDTH * i }),
+            staff
+        )
+
+        expect(result.join('\n')).toMatchInlineSnapshot(`
+            "                                                                                                                                                                                    
+                                                                                                                                                                                                
+                                                                                                                                                                                                
+                                                                                                                        ██                                                                      
+            ____________________________________________________________________________________________________________████____________________________________________________________________
+                                                            ██                                                          ██ █████                                                    ██          
+                                                            ██                                                          ██     ██                                                   ██          
+                                                            ██                         ███████                          ██     █                      ██                            ██          
+            ________________________________________________██_______________________███████████________________________██____________________________██____________________________██__________
+                                                            ██                      ███████████                         ██                            ██                            ██          
+                                                            ██                      █████████                           ██                            ██                            ██          
+                                                            ██                      ██                                  ██                            ██                            ██          
+            ________________________________________________██______________________██__________________________________██____________________________██____________________________██__________
+                       ███████                              ██                      ██                                  ██                            ██                            ██          
+                     ██       ██                            ██                      ██                                  ██                            ██                            ██          
+                    ██       ██                             ██                      ██                           █████████                            ██                            ██          
+            __________███████_______________________________██______________________██_________________________███████████____________________________██____________________________██__________
+                                                     █████████                      ██                        ███████████                             ██                     █████████          
+                                                   ███████████                      ██                          ███████                               ██                   ███████████          
+                                                  ███████████                       ██                                                         █████████                  ███████████           
+            ________________________________________███████_____________________███_██_______________________________________________________██_______██____________________███████_____________
+                                                                                  ████                                                      ██       ██                                         
+                                                                                    ██                                                        ███████                                           
+                                                                                                                                                                                                "
         `)
     })
 })
