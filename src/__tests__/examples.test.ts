@@ -2,10 +2,10 @@ import { createRect, compose, toTransparancy, Image, rotate } from '../index'
 import { reduce, forI } from '../util/array'
 
 enum NoteLength {
-    Full,
-    Half,
-    Quarter,
-    Eighth,
+    Full = 1,
+    Half = 2,
+    Quarter = 4,
+    Eighth = 8,
 }
 const drawStaff = (width: number) => {
     const canvas = createRect({ width, height: 24, char: ' ' })
@@ -85,6 +85,23 @@ const drawTrebbleNote = (
         x: shouldRotate ? 3 : 8,
         y: yOffset[notes.indexOf(noteName)],
     })
+}
+
+const drawNotesFromNotation = (notation: string) => {
+    return parseNotation(notation)
+}
+
+const parseNotation = (notation: string) => {
+    const noteNamesWithDurations = notation.match(/(([a-g])([1248]))+/g)
+    if (noteNamesWithDurations === null) return []
+    return noteNamesWithDurations
+        .map((match: string) => {
+            const matchResult = match.match(/([a-g])([1248])/)
+            if (matchResult === null) return undefined
+            const [_, name, duration] = matchResult
+            return { name, duration }
+        })
+        .filter(Boolean)
 }
 
 describe('Can draw a note', () => {
@@ -327,5 +344,13 @@ describe('Draws notes on staff:', () => {
                                                                                                                                                                                       ███████                                                               
                                                                                                                                                                                                                                                             "
         `)
+    })
+
+    test('draws from notation string (inspired by lilypond)', () => {
+        const input = 'c4 g8 d8 a2 e8 f8 a1'
+
+        const result = drawNotesFromNotation(input)
+
+        expect(result).toBe(5)
     })
 })
