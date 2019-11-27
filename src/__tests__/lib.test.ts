@@ -89,11 +89,18 @@ describe('The Lib', () => {
         expect(cropped).toEqual(image)
     })
     it('can rotate an image', () => {
-        const image = ['XX0', '000', '000']
+        const image = ['XX0', '000', '000', '000', '000']
 
         const rotated = rotate(image)
 
-        expect(rotated).toEqual(['00X', '00X', '000'])
+        expect(rotated).toEqual(['0000X', '0000X', '00000'])
+    })
+    it('can rotate an image with uneven aspect ratio for 180deg', () => {
+        const image = ['XX0', '000', '000', '000', '000']
+
+        const rotated = rotate(image, 2)
+
+        expect(rotated).toEqual(['000', '000', '000', '000', '0XX'])
     })
     it('can rotate an image 180 deg', () => {
         const image = ['XX0', '000', '000']

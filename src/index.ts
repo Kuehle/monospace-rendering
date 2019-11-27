@@ -93,20 +93,23 @@ export const rotate = (image: Image, n: number = 1) => {
     n = Math.round(n)
     if (n % 4 === 0) return image
 
-    const imageWidth = image[0].length
-    const imageHeight = image.length
+    const [resultHeight, resultWidth] =
+        n % 2 === 0
+            ? [image.length, image[0].length]
+            : [image[0].length, image.length]
 
-    const result = <string[][]>forI(imageWidth, () => [])
-    forI(imageHeight, y => {
-        forI(imageWidth, x => {
+    let result: string[][] = forI(resultHeight, () => [])
+
+    forI(resultHeight, y => {
+        forI(resultWidth, x => {
             switch (n % 4) {
                 case 1:
-                    return (result[x][imageHeight - y - 1] = image[y][x])
+                    return (result[y][x] = image[resultWidth - x - 1][y])
                 case 2:
-                    return (result[imageWidth - y - 1][imageHeight - x - 1] =
-                        image[y][x])
+                    return (result[y][x] =
+                        image[resultHeight - y - 1][resultWidth - x - 1])
                 case 3:
-                    return (result[imageWidth - x - 1][y] = image[y][x])
+                    return (result[y][x] = image[x][resultHeight - y - 1])
             }
         })
     })
