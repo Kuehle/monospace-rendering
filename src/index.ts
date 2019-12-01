@@ -20,7 +20,7 @@ type CreateRectOptions = Dimension & {
 
 type CoordinateOption = Partial<Coordinate>
 
-const TRANSPARENT = '\u0000'
+const TRANSPARENT = 'ü'
 
 export const createRect = ({
     width,

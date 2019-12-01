@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es2015",
         "module": "commonjs",
-        "lib": ["esnext"],
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
@@ -11,9 +9,11 @@
         "esModuleInterop": true,
         "inlineSourceMap": true,
         "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "target": "es2015",
+        "lib": ["esnext"],
         "declaration": true,
-        "outDir": "dist",
-        "resolveJsonModule": true
+        "outDir": "dist"
     },
     "include": ["src"],
     "exclude": ["src/**/__tests__", "src/**/__mocks__"]
