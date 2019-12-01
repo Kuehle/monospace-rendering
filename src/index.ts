@@ -110,6 +110,10 @@ export const rotate = (image: Image, n: number = 1) => {
                         image[resultHeight - y - 1][resultWidth - x - 1])
                 case 3:
                     return (result[y][x] = image[x][resultHeight - y - 1])
+                default:
+                    throw new Error(
+                        'Something went wrong while rotating. Check the input values.'
+                    )
             }
         })
     })
