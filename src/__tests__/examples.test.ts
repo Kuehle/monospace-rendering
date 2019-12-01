@@ -117,7 +117,7 @@ const parseNotation = (notation: string): Note[] => {
     return noteNamesWithDurations
         .map((match: string) => {
             const matchResult = match.match(/([a-g])([1248])/)
-            const [_, name, duration] = matchResult!
+            const [, name, duration] = matchResult!
             return { name: name.toUpperCase(), duration: Number(duration) }
         })
         .filter(Boolean)
