@@ -1,4 +1,5 @@
 import { map, reduce, forI } from './util/array'
+export { map, reduce, forI } from './util/array'
 
 export type ImageLine = string
 export type Image = ImageLine[]

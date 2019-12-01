@@ -1,3 +1,4 @@
+export { map, reduce, forI } from './util/array';
 export declare type ImageLine = string;
 export declare type Image = ImageLine[];
 export interface Dimension {
@@ -39,4 +40,3 @@ export declare const crop: (image: Image, { width, height, x, y }: Partial<Dimen
  * @param image
  */
 export declare const rotate: (image: Image, n?: number) => Image;
-export {};
