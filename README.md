@@ -59,4 +59,5 @@ ____________██______________________________________________________________
 
 ## TODO
 
+-   render string of unknown legth (text) to image (with proper word wrapping)
 -   allow for more than one char in one cell (allowing colors in terminal / web environment)
