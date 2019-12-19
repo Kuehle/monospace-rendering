@@ -34,9 +34,11 @@ export declare const compose: (bottom: Image, top: Image, offset?: Partial<Coord
  * @param image
  * @param param1
  */
-export declare const crop: (image: Image, { width, height, x, y }: Partial<Dimension & Coordinate>) => Image;
+export declare const crop: (image: Image, cropInput: Partial<Dimension & Coordinate>) => Image;
 /**
- * rotates an image to the right, as often as you want
+ * rotates an image to the right, as often as specified by the number parameter
  * @param image
+ * @param n
  */
 export declare const rotate: (image: Image, n?: number) => Image;
+export declare const measure: (image: Image) => Dimension;

@@ -1,73 +1,75 @@
 Arguments: 
-  /usr/local/Cellar/node/12.5.0/bin/node /Users/johannes.kuehlewindt/.yarn/bin/yarn.js add @types/ts-loader -D
+  /usr/bin/node /usr/bin/yarn publish
 
 PATH: 
-  /Users/johannes.kuehlewindt/.yarn/bin:/Users/johannes.kuehlewindt/.config/yarn/global/node_modules/.bin:/Users/johannes.kuehlewindt/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+  /home/jk/.cabal/bin:/home/jk/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
   1.19.1
 
 Node version: 
-  12.5.0
+  10.16.3
 
 Platform: 
-  darwin x64
+  linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fts-loader: Not found
-      at Request.params.callback [as _callback] (/Users/johannes.kuehlewindt/.yarn/lib/cli.js:66926:18)
-      at Request.self.callback (/Users/johannes.kuehlewindt/.yarn/lib/cli.js:140564:22)
-      at Request.emit (events.js:200:13)
-      at Request.<anonymous> (/Users/johannes.kuehlewindt/.yarn/lib/cli.js:141536:10)
-      at Request.emit (events.js:200:13)
-      at IncomingMessage.<anonymous> (/Users/johannes.kuehlewindt/.yarn/lib/cli.js:141458:12)
-      at Object.onceWrapper (events.js:288:20)
-      at IncomingMessage.emit (events.js:205:15)
-      at endReadableNT (_stream_readable.js:1154:12)
-      at processTicksAndRejections (internal/process/task_queues.js:74:11)
+  Error: canceled
+      at Interface.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:136824:13)
+      at Interface.emit (events.js:198:13)
+      at Interface._ttyWrite (readline.js:801:16)
+      at ReadStream.onkeypress (readline.js:184:10)
+      at ReadStream.emit (events.js:198:13)
+      at emitKeys (internal/readline.js:424:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1075:36)
+      at ReadStream.emit (events.js:198:13)
+      at addChunk (_stream_readable.js:288:12)
 
 npm manifest: 
   {
-    "name": "monospace-rendering",
-    "version": "0.0.1",
-    "description": "This Library supports you with utility functions for rendering monospaced graphics into a string.",
-    "main": "dist/main.js",
-    "scripts": {
-      "test": "jest",
-      "test:watch": "jest --watchAll",
-      "build": "webpack",
-      "build:watch": "webpack --watch"
-    },
-    "prettier": {
-      "trailingComma": "es5",
-      "tabWidth": 4,
-      "semi": false,
-      "singleQuote": true
-    },
-    "repository": "https://github.com/Kuehle/monospace-rendering",
-    "license": "MIT",
-    "devDependencies": {
-      "@types/eslint": "^6.1.3",
-      "@types/jest": "^24.0.23",
-      "@types/jest-cli": "^24.3.0",
-      "@types/prettier": "^1.18.3",
-      "@types/typescript": "^2.0.0",
-      "@types/webpack": "^4.41.0",
-      "@typescript-eslint/eslint-plugin": "^2.7.0",
-      "@typescript-eslint/parser": "^2.7.0",
-      "eslint": "^6.6.0",
-      "eslint-config-airbnb-base": "^14.0.0",
-      "eslint-plugin-import": "^2.18.2",
-      "jest": "^24.9.0",
-      "jest-cli": "^24.9.0",
-      "prettier": "^1.19.1",
-      "ts-jest": "^24.1.0",
-      "ts-loader": "^6.2.1",
-      "typescript": "^3.7.2",
-      "webpack": "^4.41.2",
-      "webpack-cli": "^3.3.10"
-    },
-    "dependencies": {}
+      "name": "monospace-rendering",
+      "version": "0.0.4",
+      "description": "This Library supports you with utility functions for rendering monospaced graphics into a string.",
+      "main": "./dist/main.js",
+      "types": "./dist/index.d.ts",
+      "author": "Johannes Kühlewindt <johannes.kuehlewindt@gmail.com>",
+      "scripts": {
+          "test": "jest",
+          "test:watch": "jest --watchAll",
+          "build": "webpack",
+          "build:watch": "webpack --watch"
+      },
+      "prettier": {
+          "trailingComma": "es5",
+          "tabWidth": 4,
+          "semi": false,
+          "singleQuote": true
+      },
+      "repository": "https://github.com/Kuehle/monospace-rendering",
+      "license": "MIT",
+      "devDependencies": {
+          "@types/eslint": "^6.1.3",
+          "@types/jest": "^24.0.23",
+          "@types/jest-cli": "^24.3.0",
+          "@types/prettier": "^1.18.3",
+          "@types/typescript": "^2.0.0",
+          "@types/webpack": "^4.41.0",
+          "@typescript-eslint/eslint-plugin": "^2.7.0",
+          "@typescript-eslint/parser": "^2.7.0",
+          "eslint": "^6.6.0",
+          "eslint-config-airbnb-base": "^14.0.0",
+          "eslint-plugin-import": "^2.18.2",
+          "jest": "^24.9.0",
+          "jest-cli": "^24.9.0",
+          "prettier": "^1.19.1",
+          "ts-jest": "^24.1.0",
+          "ts-loader": "^6.2.1",
+          "typescript": "^3.7.2",
+          "webpack": "^4.41.2",
+          "webpack-cli": "^3.3.10"
+      },
+      "dependencies": {}
   }
 
 yarn manifest: 
