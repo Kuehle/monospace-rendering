@@ -121,3 +121,8 @@ export const rotate = (image: Image, n: number = 1) => {
 
     return map(result, line => line.join(''))
 }
+
+
+export const measure = (image: Image): Dimension => {
+    return {height: image.length, width: reduce(image, (acc, line) => line.length > acc ? line.length : acc, 0)}
+}
