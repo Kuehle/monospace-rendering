@@ -13,6 +13,7 @@ This library comes close to what is commonly known as ASCII rendering. This name
 -   transparency
 -   rotation
 -   render a portion of a reneders image
+-   measure an image
 
 ## Examples
 
