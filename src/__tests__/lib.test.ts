@@ -1,4 +1,11 @@
-import { createRect, compose, crop, toTransparancy, rotate } from '../index'
+import {
+    createRect,
+    compose,
+    crop,
+    toTransparancy,
+    rotate,
+    isInBounds,
+} from '../index'
 import { map, reduce } from '../util/array'
 
 test('map', () => {
@@ -136,5 +143,34 @@ describe('The Lib', () => {
         const rotated = rotate(image, 673 / 90)
 
         expect(rotated).toEqual(['000', 'X00', 'X00'])
+    })
+
+    it('can check if a coordinate is within an image', () => {
+        const inside = isInBounds(
+            createRect({ width: 4, height: 20, char: ' ' }),
+            { x: 3, y: 19 }
+        )
+        expect(inside).toBe(true)
+    })
+    it('can check if a coordinate is within an image', () => {
+        const inside = isInBounds(
+            createRect({ width: 4, height: 20, char: ' ' }),
+            { x: 4, y: 20 }
+        )
+        expect(inside).toBe(false)
+    })
+    it('can check if a coordinate is within an image', () => {
+        const inside = isInBounds(
+            createRect({ width: 4, height: 20, char: ' ' }),
+            { x: -1, y: 19 }
+        )
+        expect(inside).toBe(false)
+    })
+    it('can check if a coordinate is within an image', () => {
+        const inside = isInBounds(
+            createRect({ width: 4, height: 20, char: ' ' }),
+            { x: 0, y: -1 }
+        )
+        expect(inside).toBe(false)
     })
 })
