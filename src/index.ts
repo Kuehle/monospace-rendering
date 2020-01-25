@@ -137,5 +137,5 @@ export const measure = (image: Image): Dimension => {
 }
 export const isInBounds = (img: Image, c: Coordinate) => {
     const { width, height } = measure(img)
-    return c.x < width && c.x >= 0 && c.x < height && c.y >= 0
+    return c.x < width && c.x >= 0 && c.y < height && c.y >= 0
 }
