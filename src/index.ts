@@ -37,7 +37,7 @@ export const createRect = ({
  * @param image
  * @param charToSubstitute
  */
-export const toTransparancy = (image: Image, charToSubstitute: string = ' ') =>
+export const toTransparency = (image: Image, charToSubstitute: string = ' ') =>
     map(image, line => line.split(charToSubstitute).join(TRANSPARENT))
 
 /**

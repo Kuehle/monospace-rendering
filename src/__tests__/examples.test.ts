@@ -1,4 +1,4 @@
-import { createRect, compose, toTransparancy, Image, rotate } from '../index'
+import { createRect, compose, toTransparency, Image, rotate } from '../index'
 import { reduce, forI } from '../util/array'
 
 enum NoteLength {
@@ -81,7 +81,7 @@ const drawTrebbleNote = (
         ? rotate(drawNote(noteLength), 2)
         : drawNote(noteLength)
 
-    return compose(staff, toTransparancy(note), {
+    return compose(staff, toTransparency(note), {
         x: shouldRotate ? 3 : 8,
         y: yOffset[notes.indexOf(noteName)],
     })
@@ -251,7 +251,7 @@ describe('Draws notes on staff:', () => {
         const staff = drawStaff(30)
         const note = drawNote(NoteLength.Quarter)
 
-        const result = compose(staff, toTransparancy(note), { x: 8, y: 5 })
+        const result = compose(staff, toTransparency(note), { x: 8, y: 5 })
         expect(result).toMatchInlineSnapshot(`
             Array [
               "                              ",

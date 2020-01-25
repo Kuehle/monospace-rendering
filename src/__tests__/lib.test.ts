@@ -2,7 +2,7 @@ import {
     createRect,
     compose,
     crop,
-    toTransparancy,
+    toTransparency,
     rotate,
     isInBounds,
     measure
@@ -66,7 +66,7 @@ describe('The Lib', () => {
     it('can render transparancy', () => {
         const canvas = createRect({ width: 5, height: 4, char: 'X' })
 
-        const circle = toTransparancy([' 000 ', '0   0', '0   0', ' 000 '], ' ')
+        const circle = toTransparency([' 000 ', '0   0', '0   0', ' 000 '], ' ')
 
         expect(compose(canvas, circle)).toEqual([
             'X000X',
