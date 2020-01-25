@@ -41,4 +41,5 @@ export declare const crop: (image: Image, cropInput: Partial<Dimension & Coordin
  * @param n
  */
 export declare const rotate: (image: Image, n?: number) => Image;
+export declare const isInBounds: (img: Image, c: Coordinate) => boolean;
 export declare const measure: (image: Image) => Dimension;

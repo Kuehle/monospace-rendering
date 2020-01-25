@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
     createRect,
     compose,
@@ -6,10 +5,8 @@ import {
     toTransparancy,
     rotate,
     isInBounds,
+    measure
 } from '../index'
-=======
-import { createRect, compose, crop, toTransparancy, rotate, measure } from '../index'
->>>>>>> 6a85b7a551658abf8c0be29789a6e83d51598858
 import { map, reduce } from '../util/array'
 
 test('map', () => {
@@ -149,7 +146,6 @@ describe('The Lib', () => {
         expect(rotated).toEqual(['000', 'X00', 'X00'])
     })
 
-<<<<<<< HEAD
     it('can check if a coordinate is within an image', () => {
         const inside = isInBounds(
             createRect({ width: 4, height: 20, char: ' ' }),
@@ -177,13 +173,11 @@ describe('The Lib', () => {
             { x: 0, y: -1 }
         )
         expect(inside).toBe(false)
-=======
     it("can get the dimensions of an image by checking for the longest line", () => {
         const image = ["0", "00", "000000", "000"]
 
         const dimensions = measure(image)
 
         expect(dimensions).toEqual({"height": 4, "width": 6})
->>>>>>> 6a85b7a551658abf8c0be29789a6e83d51598858
     })
 })

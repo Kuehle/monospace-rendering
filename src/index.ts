@@ -70,11 +70,12 @@ export const compose = (
  * @param image
  * @param param1
  */
-export const crop = (
-    image: Image,
-    cropInput: CropInput
-) => {
-    const {height, width, x, y} = Object.assign({x: 0, y: 0}, measure(image), cropInput)
+export const crop = (image: Image, cropInput: CropInput) => {
+    const { height, width, x, y } = Object.assign(
+        { x: 0, y: 0 },
+        measure(image),
+        cropInput
+    )
     return reduce(
         image,
         (acc: Image, line: ImageLine, lineNumber) => {
@@ -96,12 +97,10 @@ export const rotate = (image: Image, n: number = 1) => {
     n = Math.round(n)
     if (n % 4 === 0) return image
 
-    const {width, height} = measure(image)
+    const { width, height } = measure(image)
 
     const [resultHeight, resultWidth] =
-        n % 2 === 0
-            ? [height, width]
-            : [width, height]
+        n % 2 === 0 ? [height, width] : [width, height]
 
     let result: string[][] = forI(resultHeight, () => [])
 
@@ -126,13 +125,17 @@ export const rotate = (image: Image, n: number = 1) => {
     return map(result, line => line.join(''))
 }
 
-<<<<<<< HEAD
 export const isInBounds = (img: Image, c: Coordinate) => {
     return c.x < img[0].length && c.x >= 0 && c.x < img.length && c.y >= 0
 }
-=======
 
 export const measure = (image: Image): Dimension => {
-    return {height: image.length, width: reduce(image, (acc, line) => line.length > acc ? line.length : acc, 0)}
+    return {
+        height: image.length,
+        width: reduce(
+            image,
+            (acc, line) => (line.length > acc ? line.length : acc),
+            0
+        ),
+    }
 }
->>>>>>> 6a85b7a551658abf8c0be29789a6e83d51598858
