@@ -5,7 +5,7 @@ import {
     toTransparency,
     rotate,
     isInBounds,
-    measure
+    measure,
 } from '../index'
 import { map, reduce } from '../util/array'
 
@@ -173,11 +173,12 @@ describe('The Lib', () => {
             { x: 0, y: -1 }
         )
         expect(inside).toBe(false)
-    it("can get the dimensions of an image by checking for the longest line", () => {
-        const image = ["0", "00", "000000", "000"]
+    })
+    it('can get the dimensions of an image by checking for the longest line', () => {
+        const image = ['0', '00', '000000', '000']
 
         const dimensions = measure(image)
 
-        expect(dimensions).toEqual({"height": 4, "width": 6})
+        expect(dimensions).toEqual({ height: 4, width: 6 })
     })
 })

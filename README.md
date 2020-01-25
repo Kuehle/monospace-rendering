@@ -14,6 +14,7 @@ This library comes close to what is commonly known as ASCII rendering. This name
 -   rotation
 -   render a portion of a reneders image
 -   measure an image
+-   check if a coordinate is within an image
 
 ## Examples
 

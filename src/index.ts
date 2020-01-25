@@ -125,10 +125,6 @@ export const rotate = (image: Image, n: number = 1) => {
     return map(result, line => line.join(''))
 }
 
-export const isInBounds = (img: Image, c: Coordinate) => {
-    return c.x < img[0].length && c.x >= 0 && c.x < img.length && c.y >= 0
-}
-
 export const measure = (image: Image): Dimension => {
     return {
         height: image.length,
@@ -138,4 +134,8 @@ export const measure = (image: Image): Dimension => {
             0
         ),
     }
+}
+export const isInBounds = (img: Image, c: Coordinate) => {
+    const { width, height } = measure(img)
+    return c.x < width && c.x >= 0 && c.x < height && c.y >= 0
 }
