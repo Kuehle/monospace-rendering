@@ -1,6 +1,6 @@
 {
     "name": "monospace-rendering",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "This Library supports you with utility functions for rendering monospaced graphics into a string.",
     "main": "./dist/main.js",
     "types": "./dist/index.d.ts",

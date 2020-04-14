@@ -1,3 +1,4 @@
+export { mapImg } from './util/image';
 export { map, reduce, forI } from './util/array';
 export declare type ImageLine = string;
 export declare type Image = ImageLine[];

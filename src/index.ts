@@ -1,4 +1,5 @@
 import { map, reduce, forI } from './util/array'
+export { mapImg } from './util/image'
 export { map, reduce, forI } from './util/array'
 
 export type ImageLine = string
@@ -135,6 +136,7 @@ export const measure = (image: Image): Dimension => {
         ),
     }
 }
+
 export const isInBounds = (img: Image, c: Coordinate) => {
     const { width, height } = measure(img)
     return c.x < width && c.x >= 0 && c.y < height && c.y >= 0
